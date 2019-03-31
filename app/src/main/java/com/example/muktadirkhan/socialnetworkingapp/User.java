@@ -7,6 +7,7 @@ public class User implements Serializable{
     private String password;
     private String dob;
     private String gender;
+    private String profile_pic;
 
     public User() {
 
@@ -17,6 +18,14 @@ public class User implements Serializable{
         this.password = password;
         this.dob = dob;
         this.gender = gender;
+    }
+    public User(String name, String email, String password, String dob, String gender,String profile_pic) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.dob = dob;
+        this.gender = gender;
+        this.profile_pic = profile_pic;
     }
 
     public String getName() {
@@ -59,4 +68,11 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
 }

@@ -100,6 +100,33 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         return "";
     }
 
+    public String getPassword() {
+        try {
+            return  usermain.getPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getDob() {
+        try {
+            return  usermain.getDob();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getGender() {
+        try {
+            return  usermain.getGender();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
 

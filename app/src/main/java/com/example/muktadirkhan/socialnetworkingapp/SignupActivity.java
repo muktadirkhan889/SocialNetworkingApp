@@ -91,7 +91,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 String gender = radioGenderButton.getText().toString();
 
-                final User user = new User(name,email,password,dob,gender);
+                final User user = new User(name,email,password,dob,gender,"");
 
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

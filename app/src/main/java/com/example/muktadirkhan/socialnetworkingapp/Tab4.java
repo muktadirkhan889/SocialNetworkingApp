@@ -59,6 +59,8 @@ public class Tab4 extends Fragment {
     private final int PICK_IMAGE_REQUEST = 71;
     Bitmap bitmap;
 
+    User retrievedUser;
+
     //Overriden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,20 +86,29 @@ public class Tab4 extends Fragment {
         name_textview.setText(name);
 
 
+        DatabaseReference setImagetoImageViewRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-//        storageDownloadReference = storage.getReference().child("images");
-
-        // download the image from firebase storage and set it to the imageview
-      /*  storageDownloadReference.child(email.split("@")[0]).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        setImagetoImageViewRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(Uri uri) {
-                Log.i("storagetag",uri.toString());
-                Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_SHORT).show();
-                Glide.with(getContext())
-                        .load(uri)
-                        .into(imageView);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    if(messageSnapshot.getKey().equals(email.split("@")[0])) {
+                        retrievedUser = messageSnapshot.getValue(User.class);
+                        if(retrievedUser.getProfile_pic()!=null) {
+                            byte[] decodedString = Base64.decode(retrievedUser.getProfile_pic(), Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            imageView.setImageBitmap(decodedByte);
+                        }
+                    }
+                }
             }
-        });*/
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +138,9 @@ public class Tab4 extends Fragment {
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
+                Glide.with(getContext())
+                        .asBitmap()
+                        .load(bitmap);
                uploadImage();
             }
             catch (IOException e)
@@ -148,30 +161,17 @@ public class Tab4 extends Fragment {
         String pp= Base64.encodeToString(bytes,0);
         profile_pic = pp;
 
-
-
-
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         final User user = new User(name,email,password,dob,gender,profile_pic);
-
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    mDatabase.child(email.split("@")[0]).setValue(user);
+        mDatabase.child(email.split("@")[0]).setValue(user);
+        Glide.with(getContext())
+                .asBitmap()
+                .load(bitmap);
 
 //                    Toast.makeText(getActivity(), "Uploaded Profile Picture", Toast.LENGTH_SHORT).show();
 
 
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
 

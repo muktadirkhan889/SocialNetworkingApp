@@ -96,6 +96,8 @@ public class Tab1 extends Fragment {
                                         Post current_post = new Post();
                                         String author = retrieve_post.getAuthor();
                                         String content = retrieve_post.getContent();
+                                        String time = retrieve_post.getTime();
+                                        current_post.setTime(time);
                                         current_post.setAuthor(author);
                                         current_post.setContent(content);
                                         list.add(current_post);

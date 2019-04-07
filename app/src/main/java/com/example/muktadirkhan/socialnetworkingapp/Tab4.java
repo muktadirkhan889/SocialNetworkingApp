@@ -85,7 +85,6 @@ public class Tab4 extends Fragment {
 
         name_textview.setText(name);
 
-
         DatabaseReference setImagetoImageViewRef = FirebaseDatabase.getInstance().getReference().child("users");
 
         setImagetoImageViewRef.addValueEventListener(new ValueEventListener() {
@@ -102,24 +101,18 @@ public class Tab4 extends Fragment {
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseImage();
             }
         });
-
         return RootView;
-
     }
 
     private void chooseImage() {
@@ -149,8 +142,7 @@ public class Tab4 extends Fragment {
             }
         }
     }
-
-
+    
     // upload image to firebase storage
     private void uploadImage() {
 
@@ -168,59 +160,7 @@ public class Tab4 extends Fragment {
         Glide.with(getContext())
                 .asBitmap()
                 .load(bitmap);
-
-//                    Toast.makeText(getActivity(), "Uploaded Profile Picture", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-//        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                    mDatabase.setValue(pp);
-//                    Log.d("pppp",pp);
-//                    Toast.makeText(getContext(), "Successfully signed up", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-        /*if(filePath != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-
-            StorageReference ref = storageReference.child("images/"+ email.split("@")[0]);
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }*/
+        Toast.makeText(getActivity(), "Uploaded Profile Picture", Toast.LENGTH_SHORT).show();
     }
 
 }

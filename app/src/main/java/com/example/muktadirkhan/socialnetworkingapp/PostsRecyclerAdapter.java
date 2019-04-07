@@ -3,12 +3,14 @@ package com.example.muktadirkhan.socialnetworkingapp;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.List;
 
 public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdapter.MyHoder> {
@@ -51,47 +53,35 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         });
         holder.author.setText(mylist.getAuthor());
         holder.content.setText(mylist.getContent());
+        holder.time.setText(TimeAgo.getTimeAgo(Long.parseLong(mylist.getTime())));
+        Log.i("time_time",mylist.getTime().toString());
     }
 
     @Override
     public int getItemCount() {
-
         int arr = 0;
-
         try{
             if(list.size()==0){
-
                 arr = 0;
-
             }
             else{
-
                 arr=list.size();
             }
-
-
-
         }catch (Exception e){
-
-
-
         }
-
         return arr;
-
     }
 
     class MyHoder extends RecyclerView.ViewHolder{
-        TextView author,content;
+        TextView author,content,time;
         View view;
-
 
         public MyHoder(View itemView) {
             super(itemView);
             author = (TextView) itemView.findViewById(R.id.author_posts);
             content= (TextView) itemView.findViewById(R.id.content_posts);
+            time = (TextView) itemView.findViewById(R.id.author_posts_time);
             this.view = itemView;
-
         }
     }
 

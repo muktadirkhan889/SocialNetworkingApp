@@ -1,6 +1,8 @@
 package com.example.muktadirkhan.socialnetworkingapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
 import java.util.List;
@@ -42,11 +50,52 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Delete?");
                 builder.setMessage("Do you want to delete the post?");
-                builder.setPositiveButton("Yeah", (dialog, which) ->
+//                builder.setPositiveButton("Yeah", (dialog, which) ->
+//
+//                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+//
+//                );
+                builder.setPositiveButton("Yeah", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
-                );
-                builder.setNegativeButton("Nah", (dialog, which) -> dialog.cancel());
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("posts");
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                DataSnapshot snap = null;
+                                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                    Post post = snapshot.getValue(Post.class);
+                                    if(list.get(position).getTime().equals(post.getTime())) {
+
+                                            removeItem(position);
+                                            snap = snapshot;
+                                            break;
+                                    }
+                                }
+                                if(snap!=null) {
+                                    reference.child(snap.getKey()).removeValue();
+                                    reference.removeEventListener(this);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        Log.i("deleted","deleted");
+                    }
+                });
+
+                builder.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
                 builder.show();
                 return false;
             }
@@ -70,6 +119,15 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         }catch (Exception e){
         }
         return arr;
+    }
+
+    public void removeItem(int position) {
+        list.remove(position);
+        // notify the item removed by position
+        // to perform recycler view delete animations
+        // NOTE: don't call notifyDataSetChanged()
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     class MyHoder extends RecyclerView.ViewHolder{

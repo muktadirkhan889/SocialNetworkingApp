@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             Intent intent = new Intent(MainActivity.this,AllUsersActivity.class);
+            intent.putExtra("email",usermain.getEmail());
             startActivity(intent);
             return true;
         }

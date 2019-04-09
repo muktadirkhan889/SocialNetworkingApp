@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -19,11 +25,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AllUsersRecyclerAdapter extends RecyclerView.Adapter<AllUsersRecyclerAdapter.MyHolder> {
     List<User> list;
     Context context;
+    String email;
     int pos;
 
-    public AllUsersRecyclerAdapter(List<User> list, Context context) {
+    public AllUsersRecyclerAdapter(List<User> list, Context context, String email) {
         this.list = list;
         this.context = context;
+        this.email = email;
     }
 
     @NonNull
@@ -42,6 +50,33 @@ public class AllUsersRecyclerAdapter extends RecyclerView.Adapter<AllUsersRecycl
         User mylist = list.get(position);
         Log.i("Name",mylist.getName());
         holder.username.setText(mylist.getName());
+        DatabaseReference check_friends_ref = FirebaseDatabase.getInstance().getReference().child("friends/"+email.split("@")[0]);
+        check_friends_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(mylist.getEmail().split("@")[0])) {
+                    holder.friendship_status.setImageResource(R.drawable.tick);
+                }
+                else {
+                    holder.friendship_status.setImageResource(R.drawable.plus);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        holder.friendship_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.friendship_status.setImageResource(R.drawable.tick);
+
+                Log.i("email_adapter",email);
+                DatabaseReference friendsRef = FirebaseDatabase.getInstance().getReference().child("friends/"+email.split("@")[0]);
+                friendsRef.child(list.get(position).getEmail().split("@")[0]).setValue(mylist);
+            }
+        });
 
     }
 

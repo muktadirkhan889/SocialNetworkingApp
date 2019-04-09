@@ -1,5 +1,6 @@
 package com.example.muktadirkhan.socialnetworkingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,11 +23,15 @@ public class AllUsersActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
     AllUsersRecyclerAdapter recyclerAdapter;
     RecyclerView.LayoutManager recyce;
+    String email_to_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_users);
+        Intent intent = getIntent();
+        email_to_adapter = intent.getStringExtra("email");
+
         list = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recycle);
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
@@ -38,7 +43,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
                     list.add(childDataSnapshot.getValue(User.class));
                 }
-                recyclerAdapter = new AllUsersRecyclerAdapter(list,AllUsersActivity.this);
+                recyclerAdapter = new AllUsersRecyclerAdapter(list,AllUsersActivity.this,email_to_adapter);
                 recyce = new GridLayoutManager(AllUsersActivity.this,1);
                 recyclerView.setLayoutManager(recyce);
                 Log.i("data",list.size()+"");

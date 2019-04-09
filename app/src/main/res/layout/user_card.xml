@@ -65,8 +65,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/userimg"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/loading"
                     android:background="@android:color/white"
                     />
             </LinearLayout>

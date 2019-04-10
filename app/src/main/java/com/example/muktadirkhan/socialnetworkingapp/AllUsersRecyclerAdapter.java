@@ -75,6 +75,7 @@ public class AllUsersRecyclerAdapter extends RecyclerView.Adapter<AllUsersRecycl
 
                 Log.i("email_adapter",email);
                 DatabaseReference friendsRef = FirebaseDatabase.getInstance().getReference().child("friends/"+email.split("@")[0]);
+                DatabaseReference otheruserRef = FirebaseDatabase.getInstance().getReference().child("users/"+list.get(position).getEmail().split("@")[0]);
                 friendsRef.child(list.get(position).getEmail().split("@")[0]).setValue(mylist);
             }
         });

@@ -24,10 +24,11 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:id="@+id/profile_image"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/userimg"
+                    android:background="@drawable/civback"
                     />
                 <LinearLayout
                     android:layout_width="0dp"
@@ -79,10 +80,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll1"
                 android:gravity="center_vertical"
+                android:textColor="@color/colorDarkBold"
                 android:padding="6dp"
                 android:background="@android:color/white"
                 android:layout_marginLeft="5dp"
-                android:textSize="14dp"
+                android:textSize="15dp"
                 android:text="email" />
 
         </RelativeLayout>

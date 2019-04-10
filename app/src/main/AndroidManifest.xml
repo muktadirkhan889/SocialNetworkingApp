@@ -24,7 +24,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AllUsersActivity" />
         <activity android:name=".NewPostActivity"/>
-        <activity android:name=".MessageListActivity"/>
+        <activity android:name=".MessageListActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
     </application>
 
 </manifest>

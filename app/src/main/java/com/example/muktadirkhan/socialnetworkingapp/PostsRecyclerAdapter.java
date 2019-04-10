@@ -2,6 +2,9 @@ package com.example.muktadirkhan.socialnetworkingapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.provider.ContactsContract;
@@ -9,6 +12,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +32,7 @@ import org.w3c.dom.Text;
 import java.sql.Time;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Handler;
 
@@ -141,6 +146,17 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         holder.author.setText(mylist.getAuthor());
         holder.content.setText(mylist.getContent());
         holder.time.setText(TimeAgo.getTimeAgo(Long.parseLong(mylist.getTime())));
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        holder.profile_pic.setBackgroundColor(color);
+       /* try {
+            byte[] bytes = Base64.decode(mylist.getProfilePic,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            holder.profile_pic.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
         Log.i("time_time",mylist.getTime().toString());
     }
 
@@ -215,6 +231,7 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
     class MyHoder extends RecyclerView.ViewHolder{
         TextView author,content,time;
         ImageView speech;
+        ImageView profile_pic;
         View view;
 
         public MyHoder(View itemView) {
@@ -223,6 +240,8 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
             content= (TextView) itemView.findViewById(R.id.content_posts);
             time = (TextView) itemView.findViewById(R.id.author_posts_time);
             speech = (ImageView) itemView.findViewById(R.id.speak_icon);
+            profile_pic = (ImageView) itemView.findViewById(R.id.profile_image);
+
 
             Typeface typefaceRegular = Typeface.createFromAsset(context.getAssets(), "fonts/robotoregular.ttf");
             Typeface typefaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/robotobold.ttf");

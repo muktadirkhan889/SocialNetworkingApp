@@ -22,13 +22,13 @@
                 android:id="@+id/ll1"
                 >
                 <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                    <!--android:layout_width="30dp"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:src="@drawable/userimg"-->
-                    <!--/>-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:src="@drawable/userimg"-->
+                <!--/>-->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="8"
@@ -37,7 +37,7 @@
                     >
 
                     <TextView
-                        android:id="@+id/username_all_users"
+                        android:id="@+id/username_friends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -49,27 +49,27 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
                     <!--<TextView-->
-                        <!--android:id="@+id/author_posts_time"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingTop="0dp"-->
-                        <!--android:paddingBottom="5dp"-->
-                        <!--android:paddingLeft="5dp"-->
-                        <!--android:textStyle="bold"-->
-                        <!--android:gravity="center_vertical|top"-->
-                        <!--android:textSize="12dp"-->
-                        <!--android:text="0" />-->
+                    <!--android:id="@+id/author_posts_time"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="0dp"-->
+                    <!--android:paddingBottom="5dp"-->
+                    <!--android:paddingLeft="5dp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:gravity="center_vertical|top"-->
+                    <!--android:textSize="12dp"-->
+                    <!--android:text="0" />-->
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/friendship_status"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/loading"
-                    android:background="@android:color/white"
-                    />
+                <!--<ImageView-->
+                    <!--android:id="@+id/friendship_status"-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:src="@drawable/loading"-->
+                    <!--android:background="@android:color/white"-->
+                    <!--/>-->
             </LinearLayout>
 
 

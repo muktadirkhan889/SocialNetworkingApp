@@ -44,6 +44,7 @@
                         android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:textSize="17dp"
+                        android:textColor="@color/colorDarkBold"
                         android:text="TextView" />
                     <TextView
                         android:id="@+id/author_posts_time"
@@ -53,17 +54,20 @@
                         android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorDarkBold"
                         android:gravity="center_vertical|top"
                         android:textSize="12dp"
                         android:text="0" />
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/speak_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/userimg"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/megaphone"
                     android:background="@android:color/white"
                     />
             </LinearLayout>

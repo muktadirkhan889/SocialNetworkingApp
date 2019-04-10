@@ -2,13 +2,18 @@ package com.example.muktadirkhan.socialnetworkingapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.os.CountDownTimer;
 import android.provider.ContactsContract;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,17 +23,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.sql.Time;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Handler;
 
-public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdapter.MyHoder> {
+public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdapter.MyHoder> implements TextToSpeech.OnInitListener {
 
     List<Post> list;
     Context context;
+    TextToSpeech tts;
 
     public PostsRecyclerAdapter(List<Post> list, Context context) {
         this.list = list;
         this.context = context;
+
     }
 
     @Override
@@ -37,7 +49,7 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         View view = LayoutInflater.from(context).inflate(R.layout.text_card,parent,false);
         MyHoder myHoder = new MyHoder(view);
 
-
+        tts = new TextToSpeech(parent.getContext(),this);
         return myHoder;
     }
 
@@ -100,6 +112,32 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
                 return false;
             }
         });
+
+
+        holder.speech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.speech.setImageResource(R.drawable.megaphone_active);
+                int speechStatus = tts.speak(mylist.getContent(),TextToSpeech.QUEUE_FLUSH,null);
+                CountDownTimer timer = new CountDownTimer(1400, 1400)
+                {
+                    public void onTick(long millisUntilFinished)
+                    {
+                    }
+
+                    public void onFinish()
+                    {
+                        holder.speech.setImageResource(R.drawable.megaphone);
+                    }
+                };
+                timer.start();
+
+            }
+        });
+
+
+
+
         holder.author.setText(mylist.getAuthor());
         holder.content.setText(mylist.getContent());
         holder.time.setText(TimeAgo.getTimeAgo(Long.parseLong(mylist.getTime())));
@@ -130,8 +168,53 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int ttsLang = tts.setLanguage(Locale.getDefault());
+
+            if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                    || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The Language is not supported!");
+            } else {
+                Log.i("TTS", "Language Supported.");
+            }
+            Log.i("TTS", "Initialization success.");
+        } else {
+//            Toast.makeText((, "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+        }
+
+        tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override
+            public void onStart(String s) {
+
+            }
+
+            @Override
+            public void onDone(String s) {
+
+            }
+
+            @Override
+            public void onError(String s) {
+
+            }
+        });
+
+    }
+
+    int done(int i) {
+        if(i==1) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
     class MyHoder extends RecyclerView.ViewHolder{
         TextView author,content,time;
+        ImageView speech;
         View view;
 
         public MyHoder(View itemView) {
@@ -139,6 +222,15 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
             author = (TextView) itemView.findViewById(R.id.author_posts);
             content= (TextView) itemView.findViewById(R.id.content_posts);
             time = (TextView) itemView.findViewById(R.id.author_posts_time);
+            speech = (ImageView) itemView.findViewById(R.id.speak_icon);
+
+            Typeface typefaceRegular = Typeface.createFromAsset(context.getAssets(), "fonts/robotoregular.ttf");
+            Typeface typefaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/robotobold.ttf");
+
+            author.setTypeface(typefaceBold);
+            content.setTypeface(typefaceRegular);
+            time.setTypeface(typefaceRegular);
+
             this.view = itemView;
         }
     }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,8 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AllUsersActivity" />
-        <activity android:name=".NewPostActivity"></activity>
+        <activity android:name=".NewPostActivity"/>
+        <activity android:name=".MessageListActivity"/>
     </application>
 
 </manifest>

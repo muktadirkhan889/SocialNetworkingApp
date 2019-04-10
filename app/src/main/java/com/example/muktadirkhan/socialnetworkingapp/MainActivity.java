@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private ViewPager viewPager;
     private static FragmentManager fragmentManager;
     User usermain;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,27 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        User user = new User();
+
+        // intent from login activity
+        if(intent.getStringExtra("source").equals("fromLoginActivity")) {
+            user = (User) intent.getSerializableExtra("object");
+            Log.i("user_object",user.getEmail().toString());
+            email = user.getEmail().toString();
+        }
+
+        // intent from elsewhere
+        else {
+            user.setName(intent.getStringExtra("author").toString());
+            user.setDob("");
+            user.setEmail("");
+            user.setGender("");
+            user.setPassword("");
+        }
+//        Toast.makeText(this, user.getEmail().toString(), Toast.LENGTH_SHORT).show();
+        usermain = user;
 
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -57,24 +79,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.setOnTabSelectedListener(this);
 
 
-        Intent intent = getIntent();
-        User user = new User();
 
-        // intent from login activity
-        if(intent.getStringExtra("source").equals("fromLoginActivity")) {
-            user = (User) intent.getSerializableExtra("object");
-        }
-
-        // intent from elsewhere
-        else {
-            user.setName(intent.getStringExtra("author").toString());
-            user.setDob("");
-            user.setEmail("");
-            user.setGender("");
-            user.setPassword("");
-        }
-//        Toast.makeText(this, user.getEmail().toString(), Toast.LENGTH_SHORT).show();
-        usermain = user;
 
 
 

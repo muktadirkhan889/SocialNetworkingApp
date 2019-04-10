@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#3F51B5"
     android:gravity="center"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -8,48 +9,61 @@
     android:scrollbars="vertical"
     android:fillViewport="true"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp" >
+    android:paddingRight="20dp"
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="60dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="SocialNetworkingApp"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/login_input_layout_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/people_icon"
+        android:paddingBottom="20dp"
+        />
+    <!--<TextView-->
+        <!--android:id="@+id/textView2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingBottom="40dp"-->
+        <!--android:paddingTop="20dp"-->
+        <!--android:gravity="center_vertical|center_horizontal"-->
+        <!--android:text="SocialNetworkingApp"-->
+        <!--android:textSize="30dp"-->
+        <!--android:textStyle="bold" />-->
+
         <EditText
             android:id="@+id/login_input_email"
             android:textColor="#000000"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:inputType="textEmailAddress"
+            android:background="@drawable/rounded_edittext"
             android:hint="Email" />
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/login_input_layout_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/login_input_password"
             android:textColor="#000000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:layout_marginBottom="10dp"
             android:inputType="textPassword"
+            android:background="@drawable/rounded_edittext"
             android:hint="Password" />
-    </android.support.design.widget.TextInputLayout>
+
     <Button android:id="@+id/loginbtn"
+        android:textSize="18dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_button"
         android:textColor="@android:color/white"/>
     <Button android:id="@+id/signupbtn"
+        android:textSize="15dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Signup"

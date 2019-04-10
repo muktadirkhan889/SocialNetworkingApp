@@ -20,7 +20,18 @@
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:tint="#FFF"
+        android:src="@drawable/add_post_icon" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/refresh_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/fab"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="90dp"
+        android:src="@drawable/refresh"
+        android:tint="#FFF" />
 
 </RelativeLayout>

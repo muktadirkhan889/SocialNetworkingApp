@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -73,6 +74,11 @@ public class Tab4 extends Fragment {
         imageView = (CircleImageView) RootView.findViewById(R.id.profile_image);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        Typeface typefaceRegular = Typeface.createFromAsset(getContext().getAssets(), "fonts/robotoregular.ttf");
+        Typeface typefaceBold = Typeface.createFromAsset(getContext().getAssets(), "fonts/robotobold.ttf");
+
+        name_textview.setTypeface(typefaceBold);
 
 
 

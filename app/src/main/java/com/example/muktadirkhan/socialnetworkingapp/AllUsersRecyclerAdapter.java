@@ -1,6 +1,7 @@
 package com.example.muktadirkhan.socialnetworkingapp;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -105,6 +106,11 @@ public class AllUsersRecyclerAdapter extends RecyclerView.Adapter<AllUsersRecycl
 
             username = (TextView) itemView.findViewById(R.id.username_all_users);
             friendship_status = (ImageView) itemView.findViewById(R.id.friendship_status);
+
+            Typeface typefaceRegular = Typeface.createFromAsset(context.getAssets(), "fonts/robotoregular.ttf");
+            Typeface typefaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/robotobold.ttf");
+
+            username.setTypeface(typefaceBold);
         }
     }
 }

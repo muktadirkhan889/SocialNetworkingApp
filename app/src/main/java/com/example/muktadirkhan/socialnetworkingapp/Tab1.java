@@ -2,6 +2,7 @@ package com.example.muktadirkhan.socialnetworkingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -37,7 +38,8 @@ public class Tab1 extends Fragment {
     DatabaseReference mDatabase;
     ArrayList<Post> list;
     RecyclerView recyclerView;
-    FloatingActionButton fab;
+    FloatingActionButton fab,refresh_fab;
+
 
     PostsRecyclerAdapter recyclerAdapter;
     RecyclerView.LayoutManager recyce;
@@ -51,6 +53,7 @@ public class Tab1 extends Fragment {
         recyclerView = (RecyclerView) RootView.findViewById(R.id.recycle);
         mDatabase = FirebaseDatabase.getInstance().getReference("posts");
         fab = RootView.findViewById(R.id.fab);
+        refresh_fab = RootView.findViewById(R.id.refresh_fab);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,9 +68,9 @@ public class Tab1 extends Fragment {
             }
         });
 
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
+        refresh_fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View view) {
                 recyclerAdapter = new PostsRecyclerAdapter(list,getActivity());
                 recyce = new GridLayoutManager(getActivity(),1);
                 /// RecyclerView.LayoutManager recyce = new LinearLayoutManager(MainActivity.this);
@@ -77,9 +80,9 @@ public class Tab1 extends Fragment {
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerView.setItemAnimator( new DefaultItemAnimator());
                 Toast.makeText(c, "Refreshed", Toast.LENGTH_SHORT).show();
-                return false;
             }
         });
+
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,6 +122,7 @@ public class Tab1 extends Fragment {
                     });
 //                    Log.v("scnd",""+ mDatabase.child(childDataSnapshot.getKey().toString()));   //gives the value for given keyname
                 }
+
                 recyclerAdapter = new PostsRecyclerAdapter(list,getActivity());
                 recyce = new GridLayoutManager(getActivity(),1);
                 /// RecyclerView.LayoutManager recyce = new LinearLayoutManager(MainActivity.this);

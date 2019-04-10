@@ -3,6 +3,7 @@ package com.example.muktadirkhan.socialnetworkingapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -42,6 +43,19 @@ public class NewPostActivity extends AppCompatActivity {
         new_post_content = findViewById(R.id.content_new_post);
         post_button = findViewById(R.id.post_it);
         speak_button = findViewById(R.id.microphone);
+
+        Typeface typefaceBold = Typeface.createFromAsset(getAssets(),"fonts/robotobold.ttf");
+        Typeface typefaceRegular = Typeface.createFromAsset(getAssets(),"fonts/robotoregular.ttf");
+
+        if(permissionGranted()) {
+            speak_button.setImageResource(R.drawable.microphone_not_active);
+        } else{
+            speak_button.setImageResource(R.drawable.microphone_muted);
+        }
+
+        post_button.setTypeface(typefaceBold);
+        new_post_content.setTypeface(typefaceRegular);
+
         final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
 
@@ -138,11 +152,13 @@ public class NewPostActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         mSpeechRecognizer.stopListening();
                         new_post_content.setHint("You will see input here");
+                        speak_button.setImageResource(R.drawable.microphone_not_active);
                         break;
 
                     case MotionEvent.ACTION_DOWN:
                         checkPermission();
                         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+                        speak_button.setImageResource(R.drawable.microphone_active);
                         new_post_content.setText("");
                         new_post_content.setHint("Listening...");
                         break;
@@ -166,5 +182,14 @@ public class NewPostActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+    private boolean permissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 }

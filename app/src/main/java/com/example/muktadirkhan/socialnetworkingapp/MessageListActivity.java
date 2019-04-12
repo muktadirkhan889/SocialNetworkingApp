@@ -95,7 +95,6 @@ public class MessageListActivity extends AppCompatActivity {
 
                     Message message = new Message(chatbox_edittext.getText().toString(),restored_email.split("@")[0],name,Long.toString(System.currentTimeMillis()),receiver_email.split("@")[0]);
                     mDatabase.child(Long.toString(System.currentTimeMillis())).setValue(message);
-                    chatbox_edittext.setText("");
                 }
             }
         });
